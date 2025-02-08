@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "344277621718",
+    "project_id": "chawarmagrill-25384",
+    "storage_bucket": "chawarmagrill-25384.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344277621718:android:67b4703e6061c48c6d6277",
+        "android_client_info": {
+          "package_name": "com.chawarmagrill.efood"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvQE7BO0pOxumTomiDKP9p0ur9YQ9snHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
