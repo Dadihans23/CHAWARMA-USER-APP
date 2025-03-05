@@ -5,8 +5,8 @@ import 'package:resturant_delivery_boy/utill/dimensions.dart';
 
 ThemeData light = ThemeData(
   fontFamily: AppConstants.fontFamily,
-  primaryColor: const Color(0xFFFC6A57),
-  primaryColorLight: const Color(0xFFFE7676),
+  primaryColor: const Color(0xFFFF0000),
+  primaryColorLight: const Color(0xFFFF0000),
   secondaryHeaderColor: const Color(0xff04B200),
   brightness: Brightness.light,
   cardColor: Colors.white,

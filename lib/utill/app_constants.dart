@@ -2,7 +2,7 @@ import 'package:resturant_delivery_boy/features/language/domain/models/language_
 import 'package:resturant_delivery_boy/utill/images.dart';
 
 class AppConstants {
-  static const String appName = 'Restaurant Delivery Man';
+  static const String appName = 'Livraison Chawarma';
   static const double appVersion = 11.2;
   static const String baseUrl = 'https://admin.chawarmagrill.com';
   static const String fontFamily = 'Rubik';

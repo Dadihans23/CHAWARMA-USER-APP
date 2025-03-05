@@ -5,8 +5,8 @@ import 'package:resturant_delivery_boy/utill/dimensions.dart';
 ThemeData dark = ThemeData(
   fontFamily: 'Rubik',
   brightness: Brightness.dark,
-  primaryColor: const Color(0xFFba4f41),
-  primaryColorLight: const Color(0xFFff9e9d),
+  primaryColor: const Color(0xFFFF0000),
+  primaryColorLight: const Color (0xFFFF0000),
   scaffoldBackgroundColor: const Color(0xFF2C2C2C),
   cardColor: const Color(0xFF252525),
   hintColor: const Color(0xFFE7F6F8),
