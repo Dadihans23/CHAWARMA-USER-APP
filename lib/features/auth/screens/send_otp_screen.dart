@@ -80,7 +80,7 @@ class _SendOtpScreenState extends State<SendOtpScreen> {
                     SizedBox(height: size.width * 0.02),
       
                   Center(child: Container(
-                    width: width > 700 ? 450 : width,
+                    width: width > 700 ? 450 : 400,
                     margin: const EdgeInsets.only(top: Dimensions.paddingSizeLarge),
                     padding: width > 700 ? const EdgeInsets.all(Dimensions.paddingSizeDefault) : null,
                     decoration: width > 700 ? BoxDecoration(
@@ -99,19 +99,19 @@ class _SendOtpScreenState extends State<SendOtpScreen> {
       
                         SizedBox(height: ResponsiveHelper.isDesktop(context) ? size.height * 0.08 : size.height * 0.14),
       
-                        Consumer<SplashProvider>(
-                          builder: (context, splash, child) {
-                            return Directionality(
-                              textDirection: TextDirection.ltr,
-                              child: CustomImageWidget(
-                                image: '${splash.baseUrls?.restaurantImageUrl}/${splash.configModel!.restaurantLogo}',
-                                placeholder: Images.webAppBarLogo,
-                                fit: BoxFit.contain,
-                                width: 120, height: 80,
-                              ),
-                            );
-                          }
-                        ),
+                        // Consumer<SplashProvider>(
+                        //   builder: (context, splash, child) {
+                        //     return Directionality(
+                        //       textDirection: TextDirection.ltr,
+                        //       child: CustomImageWidget(
+                        //         image: '${splash.baseUrls?.restaurantImageUrl}/${splash.configModel!.restaurantLogo}',
+                        //         placeholder: Images.webAppBarLogo,
+                        //         fit: BoxFit.contain,
+                        //         width: 120, height: 80,
+                        //       ),
+                        //     );
+                        //   }
+                        // ),
       
                         SizedBox(height: size.height * 0.1),
       
@@ -262,10 +262,11 @@ class _SendOtpScreenState extends State<SendOtpScreen> {
 
 
 bool _isShowSocialLoginButton (ConfigModel configModel, SocialMediaLoginOptions? socialStatus){
-  return (configModel.customerLogin?.loginOption?.socialMediaLogin == 1)
-      && (configModel.customerLogin?.loginOption?.manualLogin != 1)
-      && ( (socialStatus?.apple == 1 && defaultTargetPlatform == TargetPlatform.iOS)
-          || socialStatus?.google == 1
-          || socialStatus?.facebook == 1
-      );
+  // return (configModel.customerLogin?.loginOption?.socialMediaLogin == 1)
+  //     && (configModel.customerLogin?.loginOption?.manualLogin != 1)
+  //     && ( (socialStatus?.apple == 1 && defaultTargetPlatform == TargetPlatform.iOS)
+  //         || socialStatus?.google == 1
+  //         || socialStatus?.facebook == 1
+  //     );
+  return false ;
 }

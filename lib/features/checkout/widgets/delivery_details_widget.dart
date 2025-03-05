@@ -89,7 +89,7 @@ class DeliveryDetailsWidget extends StatelessWidget {
                     Icon(Icons.info_outline_rounded, color: Theme.of(context).colorScheme.error),
                     const SizedBox(width: Dimensions.paddingSizeSmall),
 
-                    Text(getTranslated('no_contact_info_added', context)!, style: rubikRegular.copyWith(color: Theme.of(context).colorScheme.error)),
+                    Expanded(child: Text(getTranslated('no_contact_info_added', context)!, style: rubikRegular.copyWith(color: Theme.of(context).colorScheme.error , )  ,overflow: TextOverflow.visible ,softWrap: true,)),
                   ]),
                 ) : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
 

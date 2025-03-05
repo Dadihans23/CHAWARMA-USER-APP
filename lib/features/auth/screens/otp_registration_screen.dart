@@ -99,18 +99,18 @@ class _OtpRegistrationScreenState extends State<OtpRegistrationScreen> {
                           height: ResponsiveHelper.isDesktop(context) ? size.height * 0.05 : size.height * 0.14,
                         ),
 
-                        Consumer<SplashProvider>(
-                          builder: (context, splash, child) {
-                            return Directionality(textDirection: TextDirection.ltr,
-                              child: CustomImageWidget(
-                                image: '${splash.baseUrls?.restaurantImageUrl}/${splash.configModel!.restaurantLogo}',
-                                placeholder: Images.webAppBarLogo,
-                                fit: BoxFit.contain,
-                                width: 120, height: 80,
-                              ),
-                            );
-                          }
-                        ),
+                        // Consumer<SplashProvider>(
+                        //   builder: (context, splash, child) {
+                        //     return Directionality(textDirection: TextDirection.ltr,
+                        //       child: CustomImageWidget(
+                        //         image: '${splash.baseUrls?.restaurantImageUrl}/${splash.configModel!.restaurantLogo}',
+                        //         placeholder: Images.webAppBarLogo,
+                        //         fit: BoxFit.contain,
+                        //         width: 120, height: 80,
+                        //       ),
+                        //     );
+                        //   }
+                        // ),
                         const SizedBox(height: 30),
 
                         Padding(

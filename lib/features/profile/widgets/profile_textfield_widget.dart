@@ -127,7 +127,7 @@ class _ProfileTextFieldWidgetState extends State<ProfileTextFieldWidget> {
         focusedBorder: getBorder(widget.radius ?? Dimensions.radiusDefault, isFocusActive),
         disabledBorder: getBorder(widget.radius ?? Dimensions.radiusDefault, isFocusActive),
         enabledBorder: getBorder(widget.radius ?? Dimensions.radiusDefault, isFocusActive),
-        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 22),
+        contentPadding: const EdgeInsets.symmetric(vertical: 08, horizontal: 12),
         border: getBorder(widget.radius ?? Dimensions.radiusDefault, isFocusActive),
         isDense: true,
         hintText: widget.hintText ?? '',

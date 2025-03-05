@@ -131,7 +131,7 @@ class _RecommendedCategoryWidget extends StatelessWidget {
         primary: false,
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: ResponsiveHelper.isDesktop(context) ? 5 : 4,
+          crossAxisCount: ResponsiveHelper.isDesktop(context) ? 5 : 3,
           mainAxisSpacing: Dimensions.paddingSizeExtraSmall,
           crossAxisSpacing: Dimensions.paddingSizeExtraSmall,
           mainAxisExtent: 110,
@@ -152,16 +152,16 @@ class _RecommendedCategoryWidget extends StatelessWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
                 shadowColor: Theme.of(context).shadowColor.withOpacity(0.1),
                 child: Padding(
-                  padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
+                  padding: const EdgeInsets.all(0),
                   child: CustomImageWidget(
                     image: '${splashProvider.baseUrls?.categoryImageUrl}/${searchProvider.searchRecommendModel?.categories[index].image}',
                     placeholder: Images.placeholderImage,
-                    width: 30,
-                    height: 30,
+                    width: 70,
+                    height: 70,
                   ),
                 ),
               ),
-              const SizedBox(height: Dimensions.paddingSizeExtraSmall),
+              const SizedBox(height: 1),
 
               Expanded(
                 child: Padding(

@@ -6,7 +6,7 @@ class AppConstants {
   static const String appName = 'Chawarmagrill';
   static const String appVersion = '11.2';
   static const AppMode appMode = AppMode.release;
-  static const String baseUrl = 'https://admin.chawarmagrill.com/';
+  static const String baseUrl = 'https://admin.chawarmagrill.com';
   static const String categoryUri = '/api/v1/categories';
   static const String bannerUri = '/api/v1/banners';
   static const String latestProductUri = '/api/v1/products/latest';

@@ -70,7 +70,7 @@ class _CategoryPageWidgetState extends State<CategoryPageWidget> {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: isDesktop ? 5 : ResponsiveHelper.isTab(context) ? 8 : 4,
+              crossAxisCount: isDesktop ? 5 : ResponsiveHelper.isTab(context) ? 8 : 3,
               mainAxisExtent: 110,
             ),
             padding: EdgeInsets.zero,
@@ -95,7 +95,7 @@ class _CategoryPageWidgetState extends State<CategoryPageWidget> {
                         )],
                       ),
                       child: CustomImageWidget(
-                        height: 45, width: 45,
+                        height: 70, width: 70,
                         image: splashProvider.baseUrls != null
                             ? '${splashProvider.baseUrls!.categoryImageUrl}/${widget.categoryProvider.categoryList![currentIndex0].image}' : '',
                       ),

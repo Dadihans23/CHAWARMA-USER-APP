@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
+<!DOCTYPE html><html><head>
   <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
@@ -35,7 +33,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" type="text/css" href="style.css">
 
-  <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+  <link rel="shortcut icon" type="image/png" href="favicon.png">
 
   <link rel="preload" href="assets/logo.png" as="image">
   <link rel="preload" href="assets/header_icon_1.png" as="image">
@@ -47,27 +45,98 @@
 
   <!-- // Other stuff -->
 
-  <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_MAP_KEY_HEREE&loading=async&callback=Function.prototype"></script>
+  <script async="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxJmVGEVe1mAot3ZhjJF5C7vI9rdZcgdQ&amp;loading=async&amp;callback=Function.prototype"></script>
 
   <script>
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = {{flutter_service_worker_version}};
   </script>
   <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js?version=11.2" defer></script>
+  <script src="flutter.js?version=11.2" defer=""></script>
 
+  <style id="splash-screen-style">
+    html {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      min-height: 100%;
+      background-color: #1A237E;
+          background-size: 100% 100%;
+    }
+
+    .center {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    .contain {
+      display:block;
+      width:100%; height:100%;
+      object-fit: contain;
+    }
+
+    .stretch {
+      display:block;
+      width:100%; height:100%;
+    }
+
+    .cover {
+      display:block;
+      width:100%; height:100%;
+      object-fit: cover;
+    }
+
+    .bottom {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      -ms-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
+    }
+
+    .bottomLeft {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    .bottomRight {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  </style>
+  <script id="splash-screen-script">
+    function removeSplashFromWeb() {
+      document.getElementById("splash")?.remove();
+      document.getElementById("splash-branding")?.remove();
+      document.body.style.background = "transparent";
+    }
+  </script>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 </head>
 <body>
+  <picture id="splash">
+      <source srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x" media="(prefers-color-scheme: light)">
+      <source srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x" media="(prefers-color-scheme: dark)">
+      <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt="">
+  </picture>
 
 <div class="preloader">
   <div class="preloader-container">
     <!-- <img width="80" class="preloader-img" src="assets/img/preloader.png" alt=""> -->
     <div id="animation-container">
-      <img width="80" src="assets/loader_image_1.png" class="animation-image" alt="" />
-      <img width="80" src="assets/loader_image_2.png" class="animation-image" alt="" />
-      <img width="80" src="assets/loader_image_3.png" class="animation-image" alt="" />
-      <img width="80" src="assets/loader_image_4.png" class="animation-image" alt="" />
-      <img width="80" src="assets/loader_image_5.png" class="animation-image" alt="" />
+      <img width="80" src="assets/loader_image_1.png" class="animation-image" alt="">
+      <img width="80" src="assets/loader_image_2.png" class="animation-image" alt="">
+      <img width="80" src="assets/loader_image_3.png" class="animation-image" alt="">
+      <img width="80" src="assets/loader_image_4.png" class="animation-image" alt="">
+      <img width="80" src="assets/loader_image_5.png" class="animation-image" alt="">
     </div>
     <div class="loader"></div>
   </div>
@@ -142,7 +211,7 @@
 
 </script>
 
-<script type="application/javascript" src="/assets/packages/flutter_inappwebview_web/assets/web/web_support.js" defer></script>
+<script type="application/javascript" src="/assets/packages/flutter_inappwebview_web/assets/web/web_support.js" defer=""></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 
 
@@ -184,5 +253,6 @@
 </script>
 
 
-</body>
-</html>
+
+
+</body></html>

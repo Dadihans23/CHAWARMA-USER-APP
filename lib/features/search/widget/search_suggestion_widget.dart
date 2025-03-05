@@ -70,19 +70,45 @@ class SearchSuggestionWidget extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
                 child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
 
-                  Row(mainAxisSize: MainAxisSize.min, children: [
-                    Icon(
+                  Container(
+                    width: 10,
+                    child: Icon(
                       searchProvider.historyMap[searchProvider.autoCompletedName?[index]] == null ? Icons.search : Icons.history,
                       size: Dimensions.paddingSizeDefault, color: Theme.of(context).hintColor,
                     ),
-                    const SizedBox(width: Dimensions.paddingSizeDefault),
+                  ) , 
+                   const SizedBox(width: Dimensions.paddingSizeDefault),
 
-                    RichText(
-                      text: _highlightText(searchProvider.autoCompletedName?[index] ?? '', searchedText ?? '', context),
+                Expanded(
+                    child: Container(
+                      child: RichText(
+                        text: _highlightText(
+                          searchProvider.autoCompletedName?[index] ?? '', 
+                          searchedText ?? '', 
+                          context,
+                        ),
+                        overflow: TextOverflow.visible, // Permet au texte d'aller à la ligne
+                        softWrap: true, // Active le retour à la ligne
+                      ),
                     ),
-                  ]),
+                  ),
+                  Container(
+                    child:Icon(CupertinoIcons.arrow_up_left, size: Dimensions.fontSizeExtraLarge, color: Theme.of(context).hintColor),
+                  )
 
-                  Icon(CupertinoIcons.arrow_up_left, size: Dimensions.fontSizeExtraLarge, color: Theme.of(context).hintColor),
+                  // Row(mainAxisSize: MainAxisSize.min, children: [
+                  //   Icon(
+                  //     searchProvider.historyMap[searchProvider.autoCompletedName?[index]] == null ? Icons.search : Icons.history,
+                  //     size: Dimensions.paddingSizeDefault, color: Theme.of(context).hintColor,
+                  //   ),
+                  //   const SizedBox(width: Dimensions.paddingSizeDefault),
+
+                  //   RichText(
+                  //     text: _highlightText(searchProvider.autoCompletedName?[index] ?? '', searchedText ?? '', context),
+                  //   ),
+                  // ]),
+
+                  // Icon(CupertinoIcons.arrow_up_left, size: Dimensions.fontSizeExtraLarge, color: Theme.of(context).hintColor),
 
                 ]),
               ),

@@ -34,7 +34,7 @@
         android:allowBackup="false"
         android:fullBackupOnly="false"
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_MAP_KEY_HERE"/>
+            android:value="AIzaSyAxJmVGEVe1mAot3ZhjJF5C7vI9rdZcgdQ"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

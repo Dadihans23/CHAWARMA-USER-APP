@@ -80,14 +80,14 @@ flutter_native_splash:
     android: true
     ios: true
     color : "#1A237E" 
-    image : "lib/images/intro.png"
+    image : "assets/image/logofinal.jpg"
 
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/image/logo.png"
+  image_path: "assets/image/logofinal.jpg"
   adaptive_icon_background: "#ffffff"  # Facultatif pour Android
-  adaptive_icon_foreground: "assets/image/logo.png"  # Facultatif pour Android  
+  adaptive_icon_foreground: "assets/image/logofinal.jpg"  # Facultatif pour Android  
 
 
 dependency_overrides:
@@ -99,6 +99,8 @@ dev_dependencies:
   fwfh_text_style: ^2.23.8
   drift_dev: ^2.19.0
   build_runner: ^2.4.13
+  flutter_native_splash: ^2.3.9
+
 
 
   flutter_test:

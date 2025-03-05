@@ -74,9 +74,9 @@ class ColorResources {
     'cooking': Color(0xff2b9ff4),
     'out_for_delivery': Color(0xffebb936),
     'delivered': Color(0xff72b89f),
-    'canceled' : Color(0xffff6060),
-    'returned' : Color(0xffff6060),
-    'failed' : Color(0xffff6060),
+    'canceled' :  const Color(0xFFFF0000),
+    'returned' :  const Color(0xFFFF0000),
+    'failed' :  const Color(0xFFFF0000),
     'completed': Color(0xff72b89f),
   };
 

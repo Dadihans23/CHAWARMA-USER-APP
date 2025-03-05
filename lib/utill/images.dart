@@ -94,8 +94,8 @@ class Images {
   static const String noMapBackground = 'assets/image/no_map_background.png';
 
   // for Icon
-  static const String logo = 'assets/image/logo.png';
-  static const String webAppBarLogo = 'web/assets/logo.png';
+  static const String logo = 'assets/image/logofinal.jpg';
+  static const String webAppBarLogo = 'web/assets/logofinal.jpg';
   static const String marker = 'assets/icon/marker.png';
   static const String myLocation = 'assets/icon/my_location.png';
   static const String search = 'assets/icon/search.png';

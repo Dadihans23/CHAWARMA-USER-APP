@@ -3,7 +3,7 @@ import 'package:flutter_restaurant/utill/dimensions.dart';
 
 ThemeData light = ThemeData(
   fontFamily: 'Rubik',
-  primaryColor: const Color(0xFFFF5555),
+  primaryColor:  const Color(0xFFFF0000),
   // primaryColor: const Color(0xFFFC6A57),
   //#FF5555
   secondaryHeaderColor: const Color(0xff04B200),
@@ -23,12 +23,12 @@ ThemeData light = ThemeData(
   dialogTheme: const DialogTheme(surfaceTintColor: Colors.white),
   colorScheme: ColorScheme(
     brightness: Brightness.light,
-    primary: const Color(0xFFFF5555),
-    onPrimary: const Color(0xFFFF5555),
+    primary: const Color(0xFFFF0000),
+    onPrimary:const Color(0xFFFF0000),
     secondary: const Color(0xff04B200),
     onSecondary: const Color(0xFFEFE6FE),
-    error: Colors.redAccent,
-    onError: Colors.redAccent,
+    error:const Color(0xFFFF0000),
+    onError: const Color(0xFFFF0000),
     surface: Colors.white,
     onSurface:  const Color(0xFF002349),
     shadow: Colors.grey[300],

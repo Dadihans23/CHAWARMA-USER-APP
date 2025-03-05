@@ -231,6 +231,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
+                        softWrap: true,
                       ),
                     ]),
 
@@ -282,14 +283,17 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                             const DefaultAddressStatusWidget(),
                             const SizedBox(width: Dimensions.paddingSizeSmall),
 
-                            Text(
-                              getTranslated('save_this_as_your_default_address', context)!,
-                              textAlign: TextAlign.center,
-                              style: rubikRegular.copyWith(
-                                fontSize: ResponsiveHelper.isDesktop(context) ? Dimensions.fontSizeDefault : Dimensions.fontSizeSmall,
+                            Expanded(
+                              child: Text(
+                                getTranslated('save_this_as_your_default_address', context)!,
+                                textAlign: TextAlign.center,
+                                style: rubikRegular.copyWith(
+                                  fontSize: ResponsiveHelper.isDesktop(context) ? Dimensions.fontSizeDefault : Dimensions.fontSizeSmall,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
                             ),
                           ])),
 
@@ -366,11 +370,15 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
       List<Branches?> branches = configModel!.branches!;
       bool isAvailable = branches.length == 1 && (branches[0]!.latitude == null || branches[0]!.latitude!.isEmpty);
       if(!isAvailable) {
+        print("premier ") ;
+        print(isAvailable) ;
         for (Branches? branch in branches) {
           double distance = Geolocator.distanceBetween(
             double.parse(branch!.latitude!), double.parse(branch.longitude!),
             locationProvider.position.latitude, locationProvider.position.longitude,
-          ) / 1000;
+          ) / 1000000;
+          print(distance) ;
+          print(branch.coverage!) ;
           if (distance < branch.coverage!) {
             isAvailable = true;
             break;
@@ -380,7 +388,14 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
 
       if(!isAvailable && configModel.googleMapStatus == 1) {
         showCustomSnackBarHelper(getTranslated('service_is_not_available', context));
-      }else {
+        // print(!isAvailable && configModel.googleMapStatus == 1) ;
+        // print(branches.length) ;
+        // print(branches[0]!.latitude) ;
+        // print(isAvailable) ;
+        // print( configModel.googleMapStatus == 1) ;
+        // print(branches[0]!.latitude == null || branches[0]!.latitude!.isEmpty);
+      }
+      else {
 
         String? latitude;
         String? longitude;
