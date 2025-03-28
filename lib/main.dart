@@ -39,11 +39,18 @@ Future<void> main() async {
   if(Platform.isIOS) {
     await Firebase.initializeApp();
   }else {
+    // await Firebase.initializeApp(options: const FirebaseOptions(
+    //   apiKey: 'AIzaSyA40XT2LSjEI_V9LCfp8YDE2qN_P9Fcduw', ///current_key
+    //   appId: '1:384321080318:android:eb44f7600efcf9452c0eaf', /// mobilesdk_app_id
+    //   messagingSenderId: '384321080318', /// project_number
+    //   projectId: 'gem-b5006', /// project_id
+    // ));
+
     await Firebase.initializeApp(options: const FirebaseOptions(
-      apiKey: 'AIzaSyA40XT2LSjEI_V9LCfp8YDE2qN_P9Fcduw', ///current_key
-      appId: '1:384321080318:android:eb44f7600efcf9452c0eaf', /// mobilesdk_app_id
-      messagingSenderId: '384321080318', /// project_number
-      projectId: 'gem-b5006', /// project_id
+      apiKey: 'AIzaSyBvQE7BO0pOxumTomiDKP9p0ur9YQ9snHc', ///current_key
+      appId: '1:344277621718:android:67b4703e6061c48c6d6277', /// mobilesdk_app_id
+      messagingSenderId: '344277621718', /// project_number
+      projectId: 'chawarmagrill-25384"', /// project_id
     ));
 
   }

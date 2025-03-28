@@ -1,4 +1,4 @@
-package com.sixamtech.efood_delivery
+package com.chawarmagrill.test3
 
 import io.flutter.embedding.android.FlutterActivity
 
