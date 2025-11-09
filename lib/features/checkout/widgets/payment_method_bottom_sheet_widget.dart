@@ -94,12 +94,12 @@ class _PaymentMethodBottomSheetWidgetState extends State<PaymentMethodBottomShee
       ));
     }
 
-    paymentList.add(PaymentMethod(
-      getWay: 'cinetpay',
-      getWayTitle: 'CinetPay (Mobile Money)',
-      getWayImage: Images.offlinePayment, // Assure-toi d'avoir une image pour CinetPay
-      type: 'digital',
-    ));
+    // paymentList.add(PaymentMethod(
+    //   getWay: 'cinetpay',
+    //   getWayTitle: 'CinetPay (Mobile Money)',
+    //   getWayImage: Images.offlinePayment, // Assure-toi d'avoir une image pour CinetPay
+    //   type: 'digital',
+    // ));
 
   }
   @override
