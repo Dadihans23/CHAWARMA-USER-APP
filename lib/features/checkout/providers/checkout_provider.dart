@@ -68,6 +68,9 @@ class CheckoutProvider extends ChangeNotifier {
   double get deliveryCharge => _deliveryCharge;
 
 
+
+
+
   set setPartialAmount(double? value)=> _partialAmount = value;
   set setCheckOutData(CheckOutModel value) {
     _checkOutData = value;
@@ -80,6 +83,9 @@ class CheckoutProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+
+
 
   void changePaymentMethod({PaymentMethod? digitalMethod, bool isUpdate = true, OfflinePaymentModel? offlinePaymentModel, bool isClear = false}){
     if(offlinePaymentModel != null){

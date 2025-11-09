@@ -55,6 +55,10 @@ import 'package:universal_html/html.dart' as html;
 
 
 
+import 'package:flutter_restaurant/features/checkout/providers/API_data.dart';
+
+
+
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 late AndroidNotificationChannel channel;
@@ -138,6 +142,11 @@ Future<void> main() async {
 
   runApp(MultiProvider(
     providers: [
+
+
+      ChangeNotifierProvider(create: (_) => TransactionProvider()),
+
+
       ChangeNotifierProvider(create: (context) => di.sl<ThemeProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<SplashProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<LanguageProvider>()),

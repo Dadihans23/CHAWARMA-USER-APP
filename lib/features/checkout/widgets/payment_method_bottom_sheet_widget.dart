@@ -19,6 +19,7 @@ import 'package:flutter_restaurant/features/wallet/widgets/add_fund_dialogue_wid
 import 'package:go_router/go_router.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_restaurant/features/checkout/widgets/PartialMobileMoney.dart';
 
 
 class PaymentMethodBottomSheetWidget extends StatefulWidget {
@@ -93,6 +94,13 @@ class _PaymentMethodBottomSheetWidgetState extends State<PaymentMethodBottomShee
       ));
     }
 
+    paymentList.add(PaymentMethod(
+      getWay: 'cinetpay',
+      getWayTitle: 'CinetPay (Mobile Money)',
+      getWayImage: Images.offlinePayment, // Assure-toi d'avoir une image pour CinetPay
+      type: 'digital',
+    ));
+
   }
   @override
   Widget build(BuildContext context) {
@@ -162,7 +170,7 @@ class _PaymentMethodBottomSheetWidgetState extends State<PaymentMethodBottomShee
 
 
                   SizedBox(height: notHideCod ? Dimensions.paddingSizeLarge : 0),
-
+                  
                   Row(children: [
                     configModel.cashOnDelivery! && notHideCod ? Expanded(
                       child: PaymentButtonWidget(
@@ -175,6 +183,7 @@ class _PaymentMethodBottomSheetWidgetState extends State<PaymentMethodBottomShee
                       ),
                     ) : const SizedBox(),
                     SizedBox(width: configModel.cashOnDelivery! ? Dimensions.paddingSizeLarge : 0),
+                    
 
                     configModel.walletStatus! && authProvider.isLoggedIn() && (checkoutProvider.partialAmount == null) && !isPartialPayment ? Expanded(
                       child: PaymentButtonWidget(
@@ -196,6 +205,58 @@ class _PaymentMethodBottomSheetWidgetState extends State<PaymentMethodBottomShee
                     ) : const SizedBox(),
 
                   ]),
+
+
+
+
+
+//                    // AJOUT DE PAIMENT MOBILE MONNEY 
+//                     configModel.cashOnDelivery! && notHideCod ? Expanded(
+//                       child:GestureDetector(
+//                         onTap: () {
+//                           // 1. Sélectionner le mode paiement "cash on delivery"
+//                           checkoutProvider.setPaymentIndex(0);
+//                           showDialog(context: context, builder: (ctx)=> PartialMobileMoneyWidget(
+//                             isPartialPay: profileProvider.userInfoModel!.walletBalance! < widget.totalPrice,
+//                             totalPrice: widget.totalPrice,
+//                           ));
+
+                          
+//                         },
+//                         child: Container(
+//                         decoration: BoxDecoration(
+//                           borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+//                           border: Border.all(
+//                             color: checkoutProvider.paymentMethodIndex == 0
+//                                 ? Theme.of(context).primaryColor
+//                                 : Theme.of(context).primaryColor,
+//                           ),
+//                           color: Colors.transparent,
+//                         ),
+//                         padding: const EdgeInsets.symmetric(
+//                           horizontal: Dimensions.paddingSizeSmall,
+//                           vertical: Dimensions.paddingSizeLarge,
+//                         ),
+//                         child: Row(
+//                           children: [
+//                             Icon(Icons.money, color: Theme.of(context).textTheme.bodyLarge?.color, size: 20),
+//                             const SizedBox(width: Dimensions.paddingSizeSmall),
+//                             Expanded(
+//                               child: Text(
+//                                 "Paiement MOBILE MONEY",
+//                                 style: rubikSemiBold.copyWith(
+//                                   fontSize: Dimensions.fontSizeSmall,
+//                                   color: Theme.of(context).textTheme.bodyLarge?.color,
+//                                 ),
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                         ),
+//                       )
+// ,
+//                     ) : const SizedBox(),
+                    SizedBox(width: configModel.cashOnDelivery! ? Dimensions.paddingSizeLarge : 0) , 
                   const SizedBox(height: Dimensions.paddingSizeLarge),
 
                  if(paymentList.isNotEmpty) Row(children: [

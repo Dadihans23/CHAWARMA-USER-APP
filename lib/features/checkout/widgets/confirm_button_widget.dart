@@ -30,6 +30,38 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_html/html.dart' as html;
 
+
+
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter_restaurant/common/providers/theme_provider.dart';
+import 'package:flutter_restaurant/features/checkout/providers/checkout_provider.dart';
+import 'package:flutter_restaurant/helper/price_converter_helper.dart';
+import 'package:flutter_restaurant/localization/language_constrants.dart';
+import 'package:flutter_restaurant/features/profile/providers/profile_provider.dart';
+import 'package:flutter_restaurant/utill/color_resources.dart';
+import 'package:flutter_restaurant/utill/dimensions.dart';
+import 'package:flutter_restaurant/utill/images.dart';
+import 'package:flutter_restaurant/utill/styles.dart';
+import 'package:flutter_restaurant/common/widgets/custom_button_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
+
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+
+import 'dart:convert';
+
+import 'package:flutter_restaurant/features/checkout/providers/API_data.dart';
+import 'package:flutter_restaurant/features/checkout/models/APIData.dart';
+import 'package:flutter_restaurant/features/checkout/screens/redirectPaymentPage.dart';
+
+
+import 'package:url_launcher/url_launcher.dart';
+
+
 class ConfirmButtonWidget extends StatelessWidget {
   final bool kmWiseCharge;
   final bool isCutlery;
@@ -54,6 +86,12 @@ class ConfirmButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final BranchProvider branchProvider = Provider.of<BranchProvider>(context, listen: false);
     final takeAway =  orderType.name.camelCaseToSnakeCase() == 'take_away';
+
+    final ProfileProvider profileProvider = Provider.of<ProfileProvider>(context, listen: false);
+    final CheckoutProvider checkoutProvider = Provider.of<CheckoutProvider>(context, listen: false);
+    final ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+
+    final TransactionProvider transaction = Provider.of<TransactionProvider>(context , listen: false);
 
     return Consumer<CheckoutProvider>(builder: (context, checkoutProvider, _) {
           return Container(
@@ -181,37 +219,73 @@ class ConfirmButtonWidget extends StatelessWidget {
                           selectedDeliveryArea: locationProvider.selectedAreaID == -1 || checkoutProvider.orderType == OrderType.takeAway? null  : locationProvider.selectedAreaID,
                         );
 
+                        orderProvider.setPlaceOrder(convert.base64Url.encode(convert.utf8.encode(convert.jsonEncode(placeOrderBody.toJson()))));
+                        if (placeOrderBody.paymentMethod == 'cinetpay') {
+
+                          print(" cest cinetpay hooo") ;
+                          final transaction = Provider.of<TransactionProvider>(context, listen: false).transaction;
+                          if (transaction != null) {
+                            final response = await sendTransactionToCinetPay(transaction);
+                            if (response.statusCode == 200 || response.statusCode == 201) {
+                              final responseBody = jsonDecode(response.body);
+                              final paymentUrl = responseBody['data']['payment_url'];
+                              if (paymentUrl != null) {
+                                // Rediriger vers la page de paiement
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => RedirectToPaymentPage(
+                                        paymentUrl: paymentUrl,
+                                        transactionId: transaction.transactionId,
+                                        siteId: transaction.siteId,
+                                        apiKey: transaction.apikey,
+                                      ),
+                                    ),
+                                  );
+                              } else {
+                                showCustomSnackBarHelper(
+                                  getTranslated('payment_url_not_found', context) ?? 'URL de paiement non trouvée.',
+                                );
+                              }
+                            }
+                          } else {
+                            showCustomSnackBarHelper(
+                              getTranslated('transaction_not_found', context) ?? 'Aucune transaction trouvée.',
+                            );
+                          }
+                        }
+
                         if(placeOrderBody.paymentMethod == 'wallet_payment'
                             || placeOrderBody.paymentMethod == 'cash_on_delivery'
                             || placeOrderBody.paymentMethod == 'offline_payment') {
                           orderProvider.placeOrder(placeOrderBody, callBack);
                         }
-                        else {
-                          String? hostname = html.window.location.hostname;
-                          String protocol = html.window.location.protocol;
-                          String port = html.window.location.port;
-                          final String placeOrder =  convert.base64Url.encode(convert.utf8.encode(convert.jsonEncode(placeOrderBody.toJson())));
+                        // else {
+                        //   String? hostname = html.window.location.hostname;
+                        //   String protocol = html.window.location.protocol;
+                        //   String port = html.window.location.port;
+                        //   final String placeOrder =  convert.base64Url.encode(convert.utf8.encode(convert.jsonEncode(placeOrderBody.toJson())));
 
-                          String url = "customer_id=${authProvider.getGuestId() ?? profileProvider.userInfoModel!.id}&&is_guest=${authProvider.getGuestId() != null ? '1' :'0'}"
-                              "&&callback=${AppConstants.baseUrl}${RouterHelper.orderSuccessScreen}&&order_amount=${(orderAmount + (deliveryCharge ?? 0)).toStringAsFixed(2)}";
+                        //   String url = "customer_id=${authProvider.getGuestId() ?? profileProvider.userInfoModel!.id}&&is_guest=${authProvider.getGuestId() != null ? '1' :'0'}"
+                        //       "&&callback=${AppConstants.baseUrl}${RouterHelper.orderSuccessScreen}&&order_amount=${(orderAmount + (deliveryCharge ?? 0)).toStringAsFixed(2)}";
 
-                          String webUrl = "customer_id=${authProvider.getGuestId() ?? profileProvider.userInfoModel!.id}&&is_guest=${authProvider.getGuestId() != null ? '1' :'0'}"
-                              "&&callback=$protocol//$hostname${kDebugMode ? ':$port' : ''}${RouterHelper.orderWebPayment}&&order_amount=${(orderAmount + (deliveryCharge ?? 0)).toStringAsFixed(2)}&&status=";
+                        //   String webUrl = "customer_id=${authProvider.getGuestId() ?? profileProvider.userInfoModel!.id}&&is_guest=${authProvider.getGuestId() != null ? '1' :'0'}"
+                        //       "&&callback=$protocol//$hostname${kDebugMode ? ':$port' : ''}${RouterHelper.orderWebPayment}&&order_amount=${(orderAmount + (deliveryCharge ?? 0)).toStringAsFixed(2)}&&status=";
 
 
-                          String tokenUrl = convert.base64Encode(convert.utf8.encode(ResponsiveHelper.isWeb() ? (webUrl) : url));
-                          String selectedUrl = '${AppConstants.baseUrl}/payment-mobile?token=$tokenUrl&&payment_method=${checkoutProvider.selectedPaymentMethod?.getWay}&&payment_platform=${kIsWeb ? 'web' : 'app'}&&is_partial=${checkoutProvider.partialAmount == null ? '0' : '1'}';
+                        //   String tokenUrl = convert.base64Encode(convert.utf8.encode(ResponsiveHelper.isWeb() ? (webUrl) : url));
+                        //   String selectedUrl = '${AppConstants.baseUrl}/payment-mobile?token=$tokenUrl&&payment_method=${checkoutProvider.selectedPaymentMethod?.getWay}&&payment_platform=${kIsWeb ? 'web' : 'app'}&&is_partial=${checkoutProvider.partialAmount == null ? '0' : '1'}';
 
-                          orderProvider.clearPlaceOrder().then((_) => orderProvider.setPlaceOrder(placeOrder).then((value) {
-                            if(kIsWeb){
-                              html.window.open(selectedUrl,"_self");
-                            }else{
-                              context.pop();
-                              RouterHelper.getPaymentRoute(selectedUrl, fromCheckout: true);
-                            }
+                        //   orderProvider.clearPlaceOrder().then((_) => orderProvider.setPlaceOrder(placeOrder).then((value) {
+                        //     if(kIsWeb){
+                        //       html.window.open(selectedUrl,"_self");
+                        //     }else{
+                        //       context.pop();
+                        //       RouterHelper.getPaymentRoute(selectedUrl, fromCheckout: true);
+                        //     }
 
-                          }));
-                        }
+                        //   }));
+                        // }
                       }
                     } else{
                       ResponsiveHelper.showDialogOrBottomSheet(context, PaymentMethodBottomSheetWidget(totalPrice: orderAmount + (deliveryCharge ?? 0)));
@@ -246,5 +320,35 @@ class ConfirmButtonWidget extends StatelessWidget {
   }
 
 
+Future<http.Response> sendTransactionToCinetPay(TransactionModel transaction) async {
+  final url = Uri.parse('https://api-checkout.cinetpay.com/v2/payment'); // adapte l’URL si besoin
+                        
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: jsonEncode(transaction.toJson()),
+  );
+
+  if (response.statusCode == 200 || response.statusCode == 201) {
+    print('Succès: ${response.body}');
+  } else {
+    print('Erreur: ${response.statusCode} - ${response.body}');
+  }
+
+  return response;
+}
+
+
+Future<void> openPaymentUrl(String url) async {
+  final uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  } else {
+    print('Impossible d’ouvrir le lien $url');
+  }
+}
 
 }

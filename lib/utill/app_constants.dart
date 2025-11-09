@@ -157,4 +157,36 @@ class AppConstants {
     },
   ];
 
+
+  
+
 }
+
+
+
+
+
+// {
+//   "amount": 2500,
+//   "currency": "XOF",
+//   "apikey": "XXXXXXXXXXXXXXXX",
+//   "site_id": "XXXXX",
+//   "transaction_id": "REFID12354",
+//   "description": "TRANSACTION DESCRIPTION", 
+//   "return_url": "https://www.exemple.com/return", 
+//   "notify_url": "https://www.exemple.com/notify", 
+//   "metadata": "user001",
+//   "customer_id": "001",
+//   "customer_name": "John",
+//   "customer_surname": "Doe",
+//   "channels": "MOBILE_MONEY",
+//   "invoice_data":{
+//         "Reste à payer":"25 000fr",
+//         "Matricule":"24OPO25",
+//         "Annee-scolaire":"2020-2021"
+//         }
+// }
+
+
+
+

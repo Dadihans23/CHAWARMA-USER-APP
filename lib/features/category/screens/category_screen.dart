@@ -20,6 +20,35 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
+import 'package:flutter_restaurant/features/dashboard/widgets/bottom_nav_bar_widget.dart';
+import 'package:flutter_restaurant/features/cart/screens/cart_screen.dart';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_restaurant/common/widgets/custom_asset_image_widget.dart';
+import 'package:flutter_restaurant/common/widgets/custom_pop_scope_widget.dart';
+import 'package:flutter_restaurant/common/widgets/third_party_chat_widget.dart';
+import 'package:flutter_restaurant/features/address/providers/location_provider.dart';
+import 'package:flutter_restaurant/features/cart/providers/cart_provider.dart';
+import 'package:flutter_restaurant/features/cart/screens/cart_screen.dart';
+import 'package:flutter_restaurant/features/dashboard/widgets/bottom_nav_item_widget.dart';
+import 'package:flutter_restaurant/features/home/screens/home_screen.dart';
+import 'package:flutter_restaurant/features/menu/screens/menu_screen.dart';
+import 'package:flutter_restaurant/features/order/providers/order_provider.dart';
+import 'package:flutter_restaurant/features/order/screens/order_screen.dart';
+import 'package:flutter_restaurant/features/splash/providers/splash_provider.dart';
+import 'package:flutter_restaurant/features/wishlist/screens/wishlist_screen.dart';
+import 'package:flutter_restaurant/helper/responsive_helper.dart';
+import 'package:flutter_restaurant/localization/app_localization.dart';
+import 'package:flutter_restaurant/localization/language_constrants.dart';
+import 'package:flutter_restaurant/utill/dimensions.dart';
+import 'package:flutter_restaurant/utill/images.dart';
+import 'package:flutter_restaurant/utill/styles.dart';
+import 'package:provider/provider.dart';
+
+
+
+
 class CategoryScreen extends StatefulWidget {
   final String categoryId;
   final String? categoryName;
@@ -67,7 +96,10 @@ class _CategoryScreenState extends State<CategoryScreen> with TickerProviderStat
 
     return Scaffold(
       appBar: isDesktop ? const PreferredSize(preferredSize: Size.fromHeight(100), child: WebAppBarWidget()) : null,
-      body: Consumer<CategoryProvider>(
+      body: Stack(
+        children:[
+
+          Consumer<CategoryProvider>(
         builder: (context, category, child) {
           return category.isLoading || category.categoryList == null ?
           _categoryShimmer(context, size.height, category) :
@@ -200,7 +232,11 @@ class _CategoryScreenState extends State<CategoryScreen> with TickerProviderStat
                 ),
 
 
+
                 if(ResponsiveHelper.isDesktop(context)) SliverToBoxAdapter(child: loaderWidget),
+
+
+                
 
 
 
@@ -210,6 +246,19 @@ class _CategoryScreenState extends State<CategoryScreen> with TickerProviderStat
             )),
           );
         },
+      ),
+      if (!isDesktop) // On l'affiche que sur mobile/tablette
+         const Positioned(
+      bottom: 0,
+      left: 0,
+      right: 0,
+      child: ViewCartButtonWidget(),
+    ),
+
+
+      
+
+        ] 
       ),
     );
   }

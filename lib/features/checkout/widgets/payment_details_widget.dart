@@ -15,7 +15,8 @@ import 'payment_method_bottom_sheet_widget.dart';
 
 class PaymentDetailsWidget extends StatelessWidget {
   final double total;
-  const PaymentDetailsWidget({super.key,  required this.total});
+
+  const PaymentDetailsWidget({super.key,  required this.total , });
 
   @override
   Widget build(BuildContext context) {

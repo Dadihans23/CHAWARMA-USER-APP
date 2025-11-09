@@ -22,6 +22,7 @@ import 'package:flutter_restaurant/features/category/screens/category_screen.dar
 import 'package:flutter_restaurant/features/chat/screens/chat_screen.dart';
 import 'package:flutter_restaurant/features/checkout/screens/checkout_screen.dart';
 import 'package:flutter_restaurant/features/checkout/screens/order_successful_screen.dart';
+import 'package:flutter_restaurant/features/checkout/screens/redirectPaymentPage.dart';
 import 'package:flutter_restaurant/features/coupon/screens/coupon_screen.dart';
 import 'package:flutter_restaurant/features/dashboard/screens/dashboard_screen.dart';
 import 'package:flutter_restaurant/features/force_update/screens/force_update_screen.dart';
@@ -86,6 +87,9 @@ class RouterHelper {
   static const String categoryScreen = '/category';
   static const String notificationScreen = '/notification';
   static const String checkoutScreen = '/checkout';
+
+  static const String customOrderScreen = '/customOrderScreen';
+
   static const String paymentScreen = '/payment';
   static const String orderSuccessScreen = '/order-completed';
   static const String orderDetailsScreen = '/order-details';
@@ -339,6 +343,7 @@ class RouterHelper {
 
         )), isBranchCheck: true);
       }),
+
 
       GoRoute(path: paymentScreen, builder: (context, state)=> _routeHandler(context, path: _getPath(state), PaymentScreen(
         url: Uri.decodeComponent('${state.uri.queryParameters['url']}'), formCheckout: state.uri.queryParameters['from_checkout'] == 'true',

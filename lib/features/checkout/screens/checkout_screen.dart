@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
+import 'dart:convert' as convert;
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -44,6 +46,14 @@ import 'package:flutter_restaurant/utill/styles.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+
+
+
+import 'package:flutter_restaurant/features/checkout/providers/API_data.dart';
+import 'package:flutter_restaurant/features/checkout/models/APIData.dart';
+
+
+
 class CheckoutScreen extends StatefulWidget {
   final double? amount;
   final List<CartModel>? cartList;
@@ -56,6 +66,47 @@ class CheckoutScreen extends StatefulWidget {
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
 }
+
+
+
+class ApiTransactionData {
+  final String apikey;
+  final String siteId;
+  final String transactionId;
+  final int amount;
+  final String currency;
+  final String description;
+  final String notifyUrl;
+  final String returnUrl;
+  final String channels;
+
+  ApiTransactionData({
+    required this.apikey,
+    required this.siteId,
+    required this.transactionId,
+    required this.amount,
+    required this.currency,
+    required this.description,
+    required this.notifyUrl,
+    required this.returnUrl,
+    required this.channels,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      "apikey": apikey,
+      "site_id": siteId,
+      "transaction_id": transactionId,
+      "amount": amount,
+      "currency": currency,
+      "description": description,
+      "notify_url": notifyUrl,
+      "return_url": returnUrl,
+      "channels": channels,
+    };
+  }
+}
+
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   final ScrollController scrollController = ScrollController();
@@ -71,9 +122,29 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   void initState() {
     super.initState();
-
     _onInitLoad();
 
+
+
+
+  final transaction = TransactionModel(
+    apikey: "15199517246838ca77359a59.89995541",
+    siteId: "105896777",
+    transactionId: DateTime.now().millisecondsSinceEpoch.toString(),
+    // amount: widget.amount!.toInt(),
+    amount: 200,
+
+    currency: "XOF",
+    description: "achat de plat",
+    notifyUrl: "https://www.chawarmagrill.com/",
+    returnUrl: "https://www.chawarmagrill.com/",
+    channels: "MOBILE_MONEY",
+  );
+
+  // Stocker dans le provider
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    Provider.of<TransactionProvider>(context, listen: false).setTransaction(transaction);
+  });
 
   }
 
@@ -82,11 +153,62 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     final SplashProvider splashProvider = Provider.of<SplashProvider>(context, listen: false);
     final LocalizationProvider localizationProvider = Provider.of<LocalizationProvider>(context, listen: false);
+    final profileProvider = Provider.of<ProfileProvider>(context, listen: true);
+
 
     bool kmWiseCharge = CheckOutHelper.isKmWiseCharge(deliveryInfoModel: splashProvider.deliveryInfoModel!);
     bool takeAway = Provider.of<CheckoutProvider>(context, listen: false).orderType == OrderType.takeAway;
 
     final bool isDesktop = ResponsiveHelper.isDesktop(context);
+
+
+ApiTransactionData getTransactionData() {
+  return ApiTransactionData(
+    apikey: "15199517246838ca77359a59.89995541",
+    siteId: "105896777",
+    transactionId: DateTime.now().millisecondsSinceEpoch.toString(),
+    amount: widget.amount!.toInt(),
+    currency: "XOF",
+    description: "achat de plat",
+    notifyUrl: "https://www.chawarmagrill.com/",
+    returnUrl: "https://www.chawarmagrill.com/",
+    channels: "MOBILE_MONEY",
+  );
+}
+
+    
+
+void afficherDetailsTransaction() {
+  String apiKey = "15199517246838ca77359a59.89995541";
+  String siteId = "105896777";
+  String transactionId = DateTime.now().millisecondsSinceEpoch.toString(); // ID unique
+  int amount = widget.amount!.toInt(); // Assurez-vous que c’est un multiple de 5
+  String currency = "XOF";
+  String description = "achat de plat";
+  String notifyUrl = "https://www.chawarmagrill.com/";
+  String returnUrl = "https://www.chawarmagrill.com/";
+  String channels = "MOBILE_MONEY";
+
+  Map<String, dynamic> data = {
+    "apikey": apiKey,
+    "site_id": siteId,
+    "transaction_id": transactionId,
+    "amount": amount,
+    "currency": currency,
+    "description": description,
+    "notify_url": notifyUrl,
+    "return_url": returnUrl,
+    "channels": channels,
+  };
+
+  String APIData = convert.jsonEncode(data);
+
+  
+
+  print(APIData); // Pour debug
+}
+
+
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -202,7 +324,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       ),
                       const SizedBox(height: Dimensions.paddingSizeDefault),
 
-                      PaymentDetailsWidget(total: (widget.amount ?? 0) + (checkoutProvider.deliveryCharge)),
+                      PaymentDetailsWidget(total: (widget.amount ?? 0) + (checkoutProvider.deliveryCharge) ),
                       const SizedBox(height: Dimensions.paddingSizeDefault),
 
                       if(!ResponsiveHelper.isDesktop(context)) PartialPayWidget(totalPrice: (widget.amount ?? 0) + (checkoutProvider.deliveryCharge )),
@@ -237,12 +359,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             ),
                           ),
 
+                           ElevatedButton(
+                          onPressed: afficherDetailsTransaction,
+                          child: Text('Afficher dans le terminal'),
+                        ),
+
                         ]),
                       ),
                       const SizedBox(height: Dimensions.paddingSizeDefault),
 
                     ]),
                   )),
+
 
                   /// for web Cost Summery and Wallet balance card
                   if(isDesktop) Expanded(flex: 4, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -353,7 +481,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Future<void> _onInitLoad() async {
 
 
-
     final CheckoutProvider checkoutProvider = Provider.of<CheckoutProvider>(context, listen: false);
     final SplashProvider splashProvider = Provider.of<SplashProvider>(context, listen: false);
     final ProfileProvider profileProvider = Provider.of<ProfileProvider>(context, listen: false);
@@ -389,6 +516,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       _paymentList.add(PaymentMethod(getWay: 'wallet_payment', getWayImage: Images.walletPayment));
       _paymentColor.add( Colors.primaries[Random().nextInt(Colors.primaries.length)].withOpacity(0.1));
     }
+
+    _paymentList.add(PaymentMethod(getWay: 'wallet_payment', getWayImage: Images.cashOnDelivery));
+
 
     for (var method in splashProvider.configModel?.activePaymentMethodList ?? []) {
       _paymentList.add(method);
@@ -459,6 +589,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     }
   }
 
+  
+
+
+
 
 
   Future<Uint8List> convertAssetToUnit8List(String imagePath, {int width = 30}) async {
@@ -468,7 +602,38 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     return (await fi.image.toByteData(format: ImageByteFormat.png))!.buffer.asUint8List();
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
 
 
 
