@@ -15,7 +15,7 @@ class ViewCartButtonWidget extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       child: Container(
         width: double.infinity,
-        height: 100,
+        height: 120,
         padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge, vertical: Dimensions.paddingSizeSmall),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -54,7 +54,7 @@ class ViewCartButtonWidget extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.shopping_basket, size: 25),
+                    const Icon(Icons.shopping_basket, size: 25, color : Colors.white),
                     const SizedBox(width: 8),
                     Text(
                       'Voir mon panier',

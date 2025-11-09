@@ -17,7 +17,7 @@ class BottomNavItemWidget extends StatelessWidget {
         onTap: onTap as void Function()?,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           CustomAssetImageWidget(
-             imageIcon, height: 25, width: 25,
+             imageIcon, height: 20, width: 20,
             color: isSelected ? Theme.of(context).primaryColor : Theme.of(context).hintColor,
           ),
 

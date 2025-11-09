@@ -122,44 +122,75 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
                     child: Stack(children: [
 
                       Center(
-                        heightFactor: 0.2,
+                        heightFactor: 0.1,
                         child: Container(
-                          width: 60, height: 60,
                           decoration: BoxDecoration(
                             border: Border.all(color: Theme.of(context).cardColor, width: 5),
                             borderRadius: BorderRadius.circular(30),
                             boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 2, offset: const Offset(0, -2), spreadRadius: 0)],
                           ),
-                          child: FloatingActionButton(
-                            shape: const CircleBorder(),
-                            backgroundColor: Theme.of(context).primaryColor,
-                            onPressed: () {
-                              _setPage(2);
-                            },
-                            elevation: 0,
-                            child: Consumer<CartProvider>(
-                              builder: (context, cartProvider, _) {
-                                return Stack(
-                                  children: [
-                                    const CustomAssetImageWidget(Images.order, color: Colors.white, height: 30),
+                          child: GestureDetector(
+  onTap: () => _setPage(2),
+  child: Consumer<CartProvider>(
+    builder: (context, cartProvider, _) {
+      return Container(
+        width: 100,
+        height: 45,
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.shopping_cart_outlined, color: Colors.white, size: 20),
+                const SizedBox(width: 6),
+                Text(
+                  'Panier',
+                  style: rubikMedium.copyWith(
+                    color: Colors.white,
+                    fontSize: Dimensions.fontSizeDefault,
+                  ),
+                ),
+              ],
+            ),
 
-                                    if(cartProvider.cartList.isNotEmpty) Positioned(top: -4, right: 0, child: Container(
-                                      alignment: Alignment.center,
-                                      padding: const EdgeInsets.all(5),
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle, color: Colors.white,
-                                      ),
-                                      child: Text('${cartProvider.cartList.length}', style: rubikSemiBold.copyWith(
-                                        color: Theme.of(context).primaryColor,
-                                        fontSize: Dimensions.paddingSizeSmall,
-                                      )),
-                                    )),
-
-                                ],
-                                );
-                              }
-                            ),
-                          ),
+            // Badge du nombre d’articles
+            if (cartProvider.cartList.isNotEmpty)
+              Positioned(
+                top: 4,
+                right: 10,
+                child: Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Text(
+                    '${cartProvider.cartList.length}',
+                    style: rubikBold.copyWith(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: Dimensions.fontSizeExtraSmall,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      );
+    },
+  ),
+),
                         ),
                       ),
 
@@ -181,7 +212,7 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
                               onTap: () => _setPage(1),
                             ),
 
-                            Container(width: size.width * 0.2),
+                            Container(width: size.width * 0.3),
 
                             BottomNavItemWidget(
                               title: getTranslated('order', context)!,

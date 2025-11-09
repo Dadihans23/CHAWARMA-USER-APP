@@ -99,6 +99,8 @@ class _CategoryScreenState extends State<CategoryScreen> with TickerProviderStat
       body: Stack(
         children:[
 
+
+
           Consumer<CategoryProvider>(
         builder: (context, category, child) {
           return category.isLoading || category.categoryList == null ?
@@ -124,13 +126,23 @@ class _CategoryScreenState extends State<CategoryScreen> with TickerProviderStat
                   toolbarHeight: 50 + MediaQuery.of(context).padding.top,
                   pinned: true,
                   floating: false,
-                  leading: isDesktop ? const SizedBox() : SizedBox(
-                    width: isDesktop ? Dimensions.webMaxWidth : MediaQuery.of(context).size.width,
-                    child: IconButton(
-                      icon: const Icon(Icons.chevron_left, color: Colors.white),
-                      onPressed: () => context.pop(),
+                  leading: isDesktop ? const SizedBox() : Container(
+                       padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.15),
+                          width: 1.1,
+                        ),
+                      ),
+                      child: IconButton(
+                        icon: const Icon(Icons.arrow_back_ios, color: Colors.white , size: 30,),
+                        onPressed: () => context.pop(),
+                      ),
                     ),
-                  ),
+                  
+                  
                   flexibleSpace: Container(
                     color:Theme.of(context).canvasColor,
                     margin: isDesktop? EdgeInsets.symmetric(horizontal: realSpaceNeeded) : const EdgeInsets.symmetric(horizontal: 0),
@@ -249,10 +261,10 @@ class _CategoryScreenState extends State<CategoryScreen> with TickerProviderStat
       ),
       if (!isDesktop) // On l'affiche que sur mobile/tablette
          const Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: ViewCartButtonWidget(),
+          bottom: 10,
+          left: 0,
+          right: 0,
+          child: ViewCartButtonWidget(),
     ),
 
 
