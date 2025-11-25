@@ -400,6 +400,7 @@ class _DeliveryManRegistrationScreenState extends State<DeliveryManRegistrationS
       showCustomSnackBarHelper(getTranslated('enter_delivery_man_email_address', Get.context!)!);
 
     }else if(EmailCheckerHelper.isNotValid(email)) {
+      prin("wayooo")
       showCustomSnackBarHelper(getTranslated('enter_a_valid_email_address', Get.context!)!);
 
     }else if(phone.isEmpty) {
